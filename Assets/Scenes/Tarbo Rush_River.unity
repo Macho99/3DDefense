@@ -6551,7 +6551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackInterval: 0.5
-  attackDist: 10
+  attackDist: 30
 --- !u!1001 &393617909
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class Tower : MonoBehaviour
 		{
 			Collider[] colliders = Physics.OverlapSphere(transform.position, attackDist, EnemyMask);
 
-			float minSqrDist = 99999f;
+			float minSqrDist = attackDist * attackDist + 9999f;
 			GameObject minObj = null;
 			foreach (Collider collider in colliders)
 			{

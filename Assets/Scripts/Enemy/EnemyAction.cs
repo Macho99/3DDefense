@@ -9,7 +9,14 @@ public class EnemyAction : MonoBehaviour
 	[SerializeField] int maxHp;
 	private int curHp;
 
+	public int CurHp { get { return curHp; } }
+
 	private void Awake()
+	{
+		curHp = maxHp;
+	}
+
+	private void OnDisable()
 	{
 		curHp = maxHp;
 	}
