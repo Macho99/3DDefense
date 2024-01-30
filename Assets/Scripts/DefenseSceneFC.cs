@@ -5,6 +5,9 @@ using UnityEngine;
 public class DefenseSceneFC : MonoBehaviour
 {
 	[SerializeField] Transform goalPoint;
+	[Range(0f, 10f)]
+	[SerializeField] float timeScale = 1f;
+
 	private static DefenseSceneFC instance;
 	public static DefenseSceneFC Instance
 	{
@@ -20,6 +23,11 @@ public class DefenseSceneFC : MonoBehaviour
 			return;
 		}
 		instance = this;
+	}
+
+	private void Update()
+	{
+		Time.timeScale = timeScale;
 	}
 
 	private void OnDestroy()

@@ -3,17 +3,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyAction : MonoBehaviour
 {
 	[SerializeField] int maxHp;
 	private int curHp;
 
+	[HideInInspector] public UnityEvent<float> OnHpChanged;
+
 	public int CurHp { get { return curHp; } }
 
 	private void Awake()
 	{
 		curHp = maxHp;
+		OnHpChanged = new UnityEvent<float>();
 	}
 
 	private void OnDisable()
@@ -26,6 +30,7 @@ public class EnemyAction : MonoBehaviour
 		if (curHp <= 0) return;
 
 		curHp -= damage;
+		OnHpChanged?.Invoke(((float)curHp) / maxHp);
 		if(curHp <= 0)
 		{
 			curHp = 0;
