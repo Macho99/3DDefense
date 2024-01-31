@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 public class EnemyAction : MonoBehaviour
 {
+	[SerializeField] string enemyName;
 	[SerializeField] int maxHp;
 	private int curHp;
 
@@ -41,5 +42,11 @@ public class EnemyAction : MonoBehaviour
 	private void Die()
 	{
 		LeanPool.Despawn(gameObject);
+	}
+
+	public void GetTooltipStr(out string name, out string desc)
+	{
+		name = enemyName;
+		desc = "∏ÛΩ∫≈Õ~";
 	}
 }
