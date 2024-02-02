@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DefenseSceneFC : MonoBehaviour
 {
+	[SerializeField] Transform spawnPoint;
 	[SerializeField] Transform goalPoint;
 	[Range(0f, 10f)]
 	[SerializeField] float timeScale = 1f;
@@ -13,6 +14,7 @@ public class DefenseSceneFC : MonoBehaviour
 	{
 		get { return instance; }
 	}
+	public Transform SpawnPoint { get { return spawnPoint; } }
 	public Transform GoalPoint { get { return goalPoint; } }
 
 	private void Awake()

@@ -1,4 +1,3 @@
-using Lean.Pool;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,12 +12,22 @@ public class EnemyAction : MonoBehaviour
 
 	[HideInInspector] public UnityEvent<float> OnHpChanged;
 
+	EnemyMove enemyMove;
+	EnemyHpBar hpBar;
+
 	public int CurHp { get { return curHp; } }
 
 	private void Awake()
 	{
 		curHp = maxHp;
+		enemyMove = GetComponent<EnemyMove>();
 		OnHpChanged = new UnityEvent<float>();
+	}
+
+	private void OnEnable()
+	{
+		hpBar = GameManager.UI.ShowInGameUI(GameManager.Resource.Load<EnemyHpBar>("UI/EnemyHPBar"));
+		hpBar.SetTarget(transform);
 	}
 
 	private void OnDisable()
@@ -39,9 +48,11 @@ public class EnemyAction : MonoBehaviour
 		}
 	}
 
-	private void Die()
+	public void Die()
 	{
-		LeanPool.Despawn(gameObject);
+		enemyMove.WarpToSpawn();
+		GameManager.UI.CloseInGameUI(hpBar);
+		GameManager.Resource.Destroy(gameObject);
 	}
 
 	public void GetTooltipStr(out string name, out string desc)

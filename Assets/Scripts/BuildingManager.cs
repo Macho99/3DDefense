@@ -6,7 +6,7 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 {
 	public static BuildingManager Instance;
-	public TowerAttack towerPrefab;
+	public Tower towerPrefab;
 	public GameObject towerIndicaterPrefab;
 	public Transform targetTrans;
 

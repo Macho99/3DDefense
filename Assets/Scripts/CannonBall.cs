@@ -2,19 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class CannonBall : MonoBehaviour
 {
 	[SerializeField] private float hitDist = 0.1f;
-	[SerializeField] private float searchDist = 20f;
 	[SerializeField] private float heightOffset = 3f;
+	[SerializeField] private Mesh[] meshes;
 
 	private Transform rendererTransform;
+	private MeshFilter meshFilter;
 	private TrailRenderer trailRenderer;
-	private EnemyAction target;
+	private Vector3 targetPos;
 	private int damage;
 	private float speed;
-	private Vector3 lastFrameTemp;
 	private LayerMask enemyMask;
+	private Vector3 lastFrameTemp;
 
 	private void Awake()
 	{
@@ -25,16 +26,16 @@ public class Arrow : MonoBehaviour
 
 	private void OnDisable()
 	{
-		target = null;
 		damage = 0;
 		speed = 0f;
 	}
 
-	public void Init(EnemyAction action, int damage, float speed)
+	public void Init(Vector3 targetPos, int damage, float speed, int level)
 	{
-		target = action;
+		this.targetPos = targetPos;
 		this.damage = damage;
 		this.speed = speed;
+		meshFilter.mesh = meshes[level];
 		trailRenderer.Clear();
 		_ = StartCoroutine(CoMove());
 	}
@@ -42,22 +43,14 @@ public class Arrow : MonoBehaviour
 	private IEnumerator CoMove()
 	{
 		float moveStartTime = Time.time;
-		float moveEndPredictTime = Time.time + (target.transform.position - transform.position).magnitude / speed;
-		float maxHeight = (moveEndPredictTime - moveStartTime) * 0.5f * -Physics.gravity.y + heightOffset;
+		float moveEndPredictTime = Time.time + (targetPos - transform.position).magnitude / speed;
+		float maxHeight = (moveEndPredictTime - moveStartTime) * 0.5f * -25f + heightOffset;
 		while (true)
 		{
-			if(target.gameObject.activeSelf == false)
+			Vector3 diff = targetPos - transform.position;
+			if (diff.sqrMagnitude < hitDist * hitDist)
 			{
-				if (SearchNewTarget() == false)
-				{
-					break;
-				}
-			}
-
-			Vector3 diff = target.transform.position - transform.position;
-			if(diff.sqrMagnitude < hitDist * hitDist)
-			{
-				target.TakeDamage(damage);
+				Explosion();
 				break;
 			}
 			Vector3 dir = (diff).normalized;
@@ -69,7 +62,7 @@ public class Arrow : MonoBehaviour
 			rendererPos.y = yAmount;
 			rendererTransform.position = rendererPos;
 			rendererTransform.up = (lastFrameTemp - rendererTransform.position).normalized;
-			
+
 			lastFrameTemp = rendererTransform.position;
 
 			yield return null;
@@ -77,29 +70,8 @@ public class Arrow : MonoBehaviour
 		GameManager.Resource.Destroy(gameObject);
 	}
 
-	private bool SearchNewTarget()
+	private void Explosion()
 	{
-		Collider[] colliders = Physics.OverlapSphere(transform.position, searchDist, enemyMask);
 
-		float minSqrDist = 99999f;
-		GameObject minObj = null;
-		foreach (Collider collider in colliders)
-		{
-			float sqrMag = (collider.transform.position - transform.position).sqrMagnitude;
-			if (sqrMag < minSqrDist)
-			{
-				minSqrDist = sqrMag;
-				minObj = collider.gameObject;
-			}
-		}
-
-		if (minObj != null)
-		{
-			target = minObj.GetComponent<EnemyAction>();
-			return true;
-		}
-
-		target = null;
-		return false;
 	}
 }
