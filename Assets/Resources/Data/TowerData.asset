@@ -44,29 +44,33 @@ MonoBehaviour:
   cannonTowerList:
   - mesh: {fileID: 23000901338771338, guid: 6b7a23871cd2ee842841b3389e2208c4, type: 3}
     constructionMesh: {fileID: 23094601043279060, guid: 2b42263926e51724f8e90f03a0bda8c2, type: 3}
-    constructionTime: 0
-    attackDamage: 0
-    attackDelay: 0
-    attackRange: 0
-    projectileSpeed: 0
+    constructionTime: 5
+    attackDamage: 10
+    attackDelay: 4
+    attackRange: 30
+    cannonExplosionRange: 10
+    projectileSpeed: 6
   - mesh: {fileID: 23634030203962738, guid: 48a54091141567342bfd0621b9fd5e22, type: 3}
     constructionMesh: {fileID: 23277489844842216, guid: 7912fb68ca882eb4d9c1303a67f26bf3, type: 3}
-    constructionTime: 0
-    attackDamage: 50
-    attackDelay: 0
-    attackRange: 0
-    projectileSpeed: 0
+    constructionTime: 10
+    attackDamage: 15
+    attackDelay: 4
+    attackRange: 35
+    cannonExplosionRange: 12
+    projectileSpeed: 6
   - mesh: {fileID: 23187053197154270, guid: 1aabbf925db5c8b4081a8dd324c82f81, type: 3}
     constructionMesh: {fileID: 23334194548179370, guid: 3c2764acf83f27a46b6e3ab24e1fed91, type: 3}
-    constructionTime: 0
-    attackDamage: 0
-    attackDelay: 0
-    attackRange: 0
-    projectileSpeed: 0
+    constructionTime: 15
+    attackDamage: 20
+    attackDelay: 4
+    attackRange: 40
+    cannonExplosionRange: 14
+    projectileSpeed: 6
   - mesh: {fileID: 23274327295502888, guid: 7e7489cf1d714f14fad1848459bda9f3, type: 3}
     constructionMesh: {fileID: 23764249759415092, guid: ed601eb795992ba4b96706a0a695de82, type: 3}
-    constructionTime: 0
-    attackDamage: 0
-    attackDelay: 0
-    attackRange: 0
-    projectileSpeed: 0
+    constructionTime: 20
+    attackDamage: 25
+    attackDelay: 4
+    attackRange: 45
+    cannonExplosionRange: 14
+    projectileSpeed: 6

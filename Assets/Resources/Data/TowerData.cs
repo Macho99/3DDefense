@@ -12,7 +12,7 @@ public class TowerData : ScriptableObject
 	public List<ArcherTowerStat> ArcherTowerList { get { return archerTowerList; } }
 	public List<CannonTowerStat> CannonTowerList { get { return cannonTowerList; } }
 
-	[Serializable]
+
 	public class BaseTowerStat
 	{
 		public MeshRenderer mesh;
@@ -29,6 +29,7 @@ public class TowerData : ScriptableObject
 		public float projectileSpeed;
 	}
 
+	[Serializable]
 	public class CannonTowerStat : BaseTowerStat
 	{
 		public int attackDamage;

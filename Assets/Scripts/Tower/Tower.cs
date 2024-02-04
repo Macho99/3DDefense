@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class Tower : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public abstract class Tower<T> : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler 
+	where T : TowerData.BaseTowerStat
 {
 	protected MeshRenderer meshRenderer;
 	protected bool isConstructing;
-	protected List<TowerData.BaseTowerStat> baseStatList;
+	protected List<T> statList;
 	protected int level = -1;
 
 	LayerMask enemyMask;
@@ -28,14 +29,15 @@ public abstract class Tower : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 	private void LevelUp()
 	{
+
 		level++;
 		Destroy(meshRenderer.gameObject);
-		meshRenderer = Instantiate(baseStatList[level].constructionMesh, transform.position, Quaternion.identity, transform);
-		if(attackCoroutine != null )
+		meshRenderer = Instantiate(statList[level].constructionMesh, transform.position, Quaternion.identity, transform);
+		if(attackCoroutine != null)
 		{
 			StopCoroutine(attackCoroutine);
 		}
-		_ = StartCoroutine(CoConstruction(baseStatList[level].constructionTime));
+		_ = StartCoroutine(CoConstruction(statList[level].constructionTime));
 	}
 	
 
@@ -81,7 +83,7 @@ public abstract class Tower : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		isConstructing = true;
 		yield return new WaitForSeconds(time);
 		Destroy(meshRenderer.gameObject);
-		meshRenderer = Instantiate(baseStatList[level].mesh, transform.position, Quaternion.identity, transform);
+		meshRenderer = Instantiate(statList[level].mesh, transform.position, Quaternion.identity, transform);
 		attackCoroutine = StartCoroutine(CoAttack());
 		isConstructing = false;
 	}

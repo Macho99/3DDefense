@@ -20,7 +20,7 @@ public class TowerSelect : InGameUI
 		SetOffset(new Vector3(200f, 0f, 0f));
 
 		buttons["ArcherTowerButton"].onClick.AddListener(() => { curType = TowerType.Archer; });
-		buttons["CanonTowerButton"].onClick.AddListener(() => { curType = TowerType.Cannon; });
+		buttons["CanonTowerButton"].onClick.AddListener(() => { curType = TowerType.Cannon;	});
 		buttons["ConfirmButton"].onClick.AddListener(Confirm);
 	}
 
@@ -35,6 +35,13 @@ public class TowerSelect : InGameUI
 		{
 			case TowerType.Archer:
 				GameManager.Resource.Instantiate<ArcherTower>("Prefab/Tower/ArcherTower",
+					towerPosition.transform.position,
+					Quaternion.identity,
+					towerPosition.transform.parent
+					);
+				break;
+			case TowerType.Cannon:
+				GameManager.Resource.Instantiate<CannonTower>("Prefab/Tower/CannonTower",
 					towerPosition.transform.position,
 					Quaternion.identity,
 					towerPosition.transform.parent

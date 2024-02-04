@@ -31,6 +31,8 @@ public class EnemyHpBar : InGameUI
 
 	private void OnDisable()
 	{
+		greenMask.fillAmount = 1f;
+		redMask.fillAmount = 1f;
 		owner.OnHpChanged.RemoveListener(UIUpdate);
 	}
 
